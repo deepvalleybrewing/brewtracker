@@ -1,0 +1,136 @@
+{
+
+	"ingredient": {
+
+		"adjunct": {
+			"select": {
+				"all": "SELECT * FROM ingredient.\"Adjunct\";",
+				"id": "SELECT * FROM ingredient.\"Adjunct\" WHERE id=$1;"
+			},
+			"insert": "INSERT INTO ingredient.ingredient (brand, category, format, name, origin, type) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;",
+			"update": "UPDATE ingredient.ingredient brand=($1), category=($2), format=($3), name=($5), origin=($6), type=($7) WHERE id=($4);",
+			"delete": "DELETE FROM ingredient.ingredient WHERE id=($1);",
+			"mapping": {
+				"brand": "SELECT * FROM metadata.\"Category_Brand\" WHERE category_id=6;",
+				"format": "SELECT * FROM metadata.\"Category_Format\" WHERE category_id=6;",
+				"type": "SELECT * FROM metadata.type WHERE category=6;"
+			}
+		},
+
+
+		"grain": {
+			"select": {
+				"all": "SELECT * FROM ingredient.\"Grain\";",
+				"id": "SELECT * FROM ingredient.\"Grain\" WHERE id=$1;"
+			},
+			"insert": "INSERT INTO ingredient.grain (brand, category, format, lovibond, name, origin, type) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;",
+			"update": "UPDATE ingredient.grain brand=($1), category=($2), format=($3), lovibond=($5), name=($6), origin=($7), type=($8) WHERE id=($4);",
+			"delete": "DELETE FROM ingredient.grain WHERE id=($1);",
+			"mapping": {
+				"brand": "SELECT * FROM metadata.\"Category_Brand\" WHERE category_id=1;",
+				"format": "SELECT * FROM metadata.\"Category_Format\" WHERE category_id=1;",
+				"type": "SELECT * FROM metadata.type WHERE category=1;"
+			}
+		},
+
+		"hop": {
+			"select": {
+				"all": "SELECT * FROM ingredient.\"Hop\";",
+				"id": "SELECT * FROM ingredient.\"Hop\" WHERE id=$1;"
+			},
+			"insert": "INSERT INTO ingredient.hop (alpha_acid, brand, category, format, name, origin, type) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;",
+			"update": "UPDATE ingredient.hop alpha_acid=($1), brand=($2), category=($3), format=($5), name=($6), origin=($7), type=($8) WHERE id=($4);",
+			"delete": "DELETE FROM ingredient.hop WHERE id=($1);",
+			"mapping": {
+				"brand": "SELECT * FROM metadata.\"Category_Brand\" WHERE category_id=2;",
+				"format": "SELECT * FROM metadata.\"Category_Format\" WHERE category_id=2;",
+				"type": "SELECT * FROM metadata.type WHERE category=2;"
+			}
+		},
+
+		"yeast": {
+			"select": {
+				"all": "SELECT * FROM ingredient.\"Yeast\";",
+				"id": "SELECT * FROM ingredient.\"Yeast\" WHERE id=$1"
+			},
+			"insert": "INSERT INTO ingredient.yeast (brand, category, format, name, origin, strain, type) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;",
+			"update": "UPDATE ingredient.yeast brand=($1), category=($2), ferm_temp_high=($3), ferm_temp_low=($4), format=($5), name=($7), origin=($8), strain=($9), type=($10) WHERE id=($6);",
+			"delete": "DELETE FROM ingredient.yeast WHERE id=($1);",
+			"mapping": {
+				"brand": "SELECT * FROM metadata.\"Category_Brand\" WHERE category_id=5;",
+				"format": "SELECT * FROM metadata.\"Category_Format\" WHERE category_id=5;",
+				"type": "SELECT * FROM metadata.type WHERE category=5;"
+			}
+		}
+
+	},
+
+
+
+	"metadata": {
+		"brand": {
+			"select": {
+				"all": "SELECT * FROM global_metadata.brand;"
+			}
+		},
+		"category": {
+			"select": {
+				"all": "SELECT * FROM metadata.category;",
+				"id": "SELECT * FROM metadata.category WHERE id=$1;"
+			},
+			"insert": "INSERT INTO metadata.category (name) VALUES ($1) RETURNING id;",
+			"update": "UPDATE metadata.category name=($2) WHERE id=($1);",
+			"delete": "DELETE FROM metadata.category WHERE id=($1)"
+		},
+
+		"format": {
+			"select": {
+				"all": "SELECT * FROM metadata.format;",
+				"id": "SELECT * FROM metadata.format WHERE id=$1;"
+			},
+			"insert": "INSERT INTO metadata.format (name) VALUES ($1) RETURNING id;",
+			"update": "UPDATE metadata.format name=($2) WHERE id=($1);",
+			"delete": "DELETE FROM metadata.format WHERE id=($1)"
+		},
+		"origin": {
+			"select": {
+				"all": "SELECT * FROM metadata.\"Origin\";"
+			},
+			"mapping": {
+				"country": "SELECT * FROM metadata.origin_country;",
+				"continent": "SELECT * FROM metadata.origin_continent;"
+			}
+		},
+		"temperature": {
+			"select": {
+				"all": "SELECT * FROM metadata.temperature_scale;",
+				"id": "SELECT * FROM metadata.temperature_scale WHERE id=$1;"
+			}
+		},
+		"type": {
+			"select": {
+				"all": "SELECT * FROM metadata.\"Type\";",
+				"id": "SELECT * FROM metadata.\"Type\" WHERE id=$1;"
+			},
+			"insert": "INSERT INTO metadata.\"Type\" (category, name) VALUES ($1, $2) RETURNING id;",
+			"update": "UPDATE metadata.\"Type\" name=($2) WHERE id=($1);",
+			"delete": "DELETE FROM metadata.\"Type\" WHERE id=($1)"
+		},
+		"unitOfMeasure": {
+			"select": {
+				"all": "SELECT * FROM metadata.unit_of_measure;",
+				"id": "SELECT * FROM metadata.unit_of_measure WHERE id=$1;"
+			}
+		}
+	},
+
+
+	"recipe": {
+		"waterProfile": {
+			"select": {
+				"all": "SELECT * FROM recipe.water_profile;",
+				"id": "SELECT * FROM recipe.water_profile WHERE id=$1;"
+			}
+		}
+	}
+}
